@@ -53,14 +53,21 @@ export default function SettingsPage() {
     }
 
     // 2. Add as owner
-    await supabase.from('org_members').insert({
+    const { error: memberError } = await supabase.from('org_members').insert({
       org_id: org.id,
       user_id: user.id,
       role: 'owner'
     });
 
+    if (memberError) {
+      alert("Org created, but membership failed: " + memberError.message);
+      setActionLoading(false);
+      return;
+    }
+
     alert("Organization created successfully!");
-    window.location.reload();
+    router.refresh(); // Tell Next.js to clear cache
+    window.location.href = '/dashboard'; // Force redirect to dashboard
   };
 
   if (loading) return <div className="p-10 text-center font-bold text-gray-400">Loading settings...</div>;
