@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: #ffffff;
+}
+
+.prose h1 { @apply text-3xl font-black text-gray-900 mb-6; }
+.prose p { @apply text-gray-600 leading-relaxed mb-4; }
